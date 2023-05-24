@@ -1,0 +1,11 @@
+FROM node:16.14.2-alpine
+
+WORKDIR /app
+
+EXPOSE 3000
+
+COPY . .
+
+RUN ls -la && yarn install
+
+CMD ["yarn", "start:dev"]

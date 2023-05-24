@@ -5,14 +5,23 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      OSTGRES_USER: forge
+      POSTGRES_DB: api
+      POSTGRES_USER: forge
       POSTGRES_PASSWORD: forge
   api:
-    build: .
-    entrypoint: npm run start:dev
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - .:/app
     environment:
-      - PORT=3000
+      PORT: 3000
+      DB_USERNAME: forge
+      DB_PASSWORD: forge
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: api
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - db
