@@ -2,13 +2,16 @@
 version: '3.1'
 services:
   db:
-    image: postgres
+    image: postgres:latest
     restart: always
     environment:
       OSTGRES_USER: forge
       POSTGRES_PASSWORD: forge
   api:
     build: .
+    entrypoint: npm run start:dev
+    environment:
+      - PORT=3000
     ports:
       - "3000:3000"
     depends_on:
