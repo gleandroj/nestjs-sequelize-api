@@ -1,0 +1,15 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      OSTGRES_USER: forge
+      POSTGRES_PASSWORD: forge
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
